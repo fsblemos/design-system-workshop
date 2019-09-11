@@ -1,5 +1,7 @@
 <template>
-  <router-view :key="$route.path"></router-view>
+  <ca-container>
+    <router-view :key="$route.path"></router-view>
+  </ca-container>
 </template>
 
 <script>
