@@ -1,0 +1,29 @@
+steps:
+
+  - label: ":eyeglasses: Pull Request Analyze"
+    branches: "!master"
+    command: "./.buildkite/pr-analyze.sh"
+    timeout_in_minutes: 10
+    plugins:
+      docker-compose#v2.5.0:
+        run: app
+        config: docker-compose.buildkite.yml
+        env:
+         - BUILDKITE_ORGANIZATION_SLUG
+         - BUILDKITE_PIPELINE_SLUG
+         - BUILDKITE_PULL_REQUEST
+         - SONARQUBE_HOST_URL
+         - SONARQUBE_TOKEN
+         - GITHUB_TOKEN
+
+  - label: ":eyeglasses: Master Analyze"
+    branches: "master"
+    command: "./.buildkite/master-analyze.sh"
+    timeout_in_minutes: 10
+    plugins:
+      docker-compose#v2.5.0:
+        run: app
+        config: docker-compose.buildkite.yml
+        env:
+          - SONARQUBE_HOST_URL
+          - SONARQUBE_TOKEN

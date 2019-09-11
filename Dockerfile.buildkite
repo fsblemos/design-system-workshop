@@ -1,0 +1,4 @@
+FROM caninjas/js-builder:1.0.0
+WORKDIR /www
+RUN echo 'America/Sao_Paulo' > /etc/timezone && \
+	dpkg-reconfigure --frontend noninteractive tzdata
